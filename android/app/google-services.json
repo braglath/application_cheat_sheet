@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "565572909556",
+    "project_id": "application-cheetsheets",
+    "storage_bucket": "application-cheetsheets.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565572909556:android:5a7853013abfb53bfc21a1",
+        "android_client_info": {
+          "package_name": "com.flutterzone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWJWJXD4uLVTKkhRjjCggdk_vxLKa1nmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565572909556:android:be0b9eb4b73fa31bfc21a1",
+        "android_client_info": {
+          "package_name": "com.flutterzone.application_cheatsheets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWJWJXD4uLVTKkhRjjCggdk_vxLKa1nmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
