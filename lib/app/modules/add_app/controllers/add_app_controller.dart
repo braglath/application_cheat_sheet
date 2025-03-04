@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:application_cheatsheets/app/data/models/result.dart';
 import 'package:application_cheatsheets/app/data/repository/image_repo.dart';
 import 'package:application_cheatsheets/app/utils/app_functions.dart';
+import 'package:application_cheatsheets/app/utils/logger_utils';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -17,16 +18,6 @@ class AddAppController extends GetxController {
   final Rxn<String> appNameErrorText = Rxn<String>();
 
   final ImageRepository _imageRepository = ImageRepository();
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   void showLoader() => isLoading.value = true;
 
@@ -56,7 +47,7 @@ class AddAppController extends GetxController {
       // Pick image from the gallery
       final Result result = await AppFunctions.pickImageFromGallery();
       if (result.isError) {
-        print(result.errorMessage);
+        LoggerUtils.e(result.errorMessage.toString());
         return;
       }
 
@@ -68,7 +59,7 @@ class AddAppController extends GetxController {
       // Resize the image to 50x50
       final Result imageResult = await AppFunctions.resizeImage(bytes);
       if (imageResult.isError) {
-        print(imageResult.errorMessage);
+        LoggerUtils.e(imageResult.errorMessage.toString());
         return;
       }
 

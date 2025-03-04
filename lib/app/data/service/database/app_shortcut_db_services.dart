@@ -1,5 +1,6 @@
 import 'package:application_cheatsheets/app/data/models/result.dart';
 import 'package:application_cheatsheets/app/data/models/shortcuts_model.dart';
+import 'package:application_cheatsheets/app/utils/logger_utils';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../firestore_service.dart';
@@ -47,7 +48,7 @@ class AppShortcutDbService {
         return ShortcutsModelResult(shortcuts: shortcuts);
       }
     } catch (e) {
-      print("Error fetching shortcuts: $e");
+      LoggerUtils.e("Error fetching shortcuts: $e");
       return ShortcutsModelResult(
           errorMessage:
               'Error: $e'); // Return an empty list if there is an error

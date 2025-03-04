@@ -3,6 +3,7 @@ import 'package:application_cheatsheets/app/data/models/shortcuts_model.dart';
 import 'package:application_cheatsheets/app/modules/add_shortcut/controllers/add_shortcut_controller.dart';
 import 'package:application_cheatsheets/app/modules/add_shortcut/views/add_shortcut_view.dart';
 import 'package:application_cheatsheets/app/utils/app_extensions.dart';
+import 'package:application_cheatsheets/app/utils/logger_utils';
 import 'package:application_cheatsheets/app/widgets/app_logo_image_small.dart';
 import 'package:application_cheatsheets/app/widgets/loader.dart';
 import 'package:application_cheatsheets/app/widgets/search_with_fab.dart';
@@ -34,7 +35,7 @@ class ShortcutsView extends GetView<ShortcutsController> {
     );
 
     if (result != null && result is ShortcutsModel) {
-      print("Received result: ${result.toJson()}");
+      LoggerUtils.i("Received result: ${result.toJson()}");
       // add the shortcut
 
       await controller.addShortcut(result).whenComplete(
@@ -46,7 +47,7 @@ class ShortcutsView extends GetView<ShortcutsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
-        extendBodyBehindAppBar: true,
+        // extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Obx(() => Text(controller.app.value?.name ?? '')),
           actions: [
@@ -76,11 +77,12 @@ class ShortcutsView extends GetView<ShortcutsController> {
                       ? Center(
                           child: SubtitleText(AppString.noShortcutsAddedYet))
                       : ListView.separated(
+                          padding: EdgeInsets.only(bottom: 150),
                           shrinkWrap: true,
                           itemCount: controller.shortcuts.length,
                           separatorBuilder: (context, index) => Divider(),
                           itemBuilder: (context, index) => ExpansionTile(
-                                // leading: Text((index + 1).toString()),
+                                leading: Text((index + 1).toString()),
                                 maintainState: true,
                                 title: Padding(
                                   padding: const EdgeInsets.only(bottom: 8.0),

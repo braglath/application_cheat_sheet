@@ -31,6 +31,7 @@ class HomeController extends GetxController {
     final result = await _appDb.getApps();
     if (result.isError) {
       Get.snackbar("Error", result.errorMessage ?? '');
+      print("Get Apps Error: ${result.errorMessage}");
     } else {
       if (result.appList != null || result.appList!.isNotEmpty) {
         allApps.value = result.appList!.toList();
@@ -68,10 +69,5 @@ class HomeController extends GetxController {
         return app.name!.toLowerCase().contains(search.toLowerCase());
       }).toList();
     }
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

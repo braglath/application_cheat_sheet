@@ -1,5 +1,6 @@
 import 'package:application_cheatsheets/app/data/models/result.dart';
 import 'package:application_cheatsheets/app/data/models/user_model.dart';
+import 'package:application_cheatsheets/app/utils/logger_utils';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../firestore_service.dart';
@@ -17,7 +18,7 @@ class UserDbService {
       await db.collection(_userCollection).doc(customId).set(user.toJson());
       return Result();
     } catch (e) {
-      print('Error adding document: $e');
+      LoggerUtils.e('Error adding document: $e');
       return Result(errorMessage: e.toString());
     }
   }
@@ -37,7 +38,7 @@ class UserDbService {
         return UserModelResult(userList: users);
       }
     } catch (e) {
-      print('Error fetching documents: $e');
+      LoggerUtils.e('Error fetching documents: $e');
       return UserModelResult(errorMessage: 'Error: $e');
     }
   }
