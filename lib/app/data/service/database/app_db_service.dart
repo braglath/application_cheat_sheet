@@ -1,5 +1,6 @@
 import 'package:application_cheatsheets/app/data/models/app_model.dart';
 import 'package:application_cheatsheets/app/data/models/result.dart';
+import 'package:application_cheatsheets/app/utils/logger_utils';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../firestore_service.dart';
@@ -17,7 +18,7 @@ class AppDbService {
       await db.collection(_appsCollection).doc(app.id).set(app.toJson());
       return Result(data: "App added successfully");
     } catch (e) {
-      print('Error adding app: $e');
+      LoggerUtils.e("Error adding app: $e");
       return Result(errorMessage: e.toString());
     }
   }
@@ -29,9 +30,6 @@ class AppDbService {
       final dataList = snapshot.docs
           .map((doc) => doc.data() as Map<String, dynamic>)
           .toList();
-      // dataList.forEach((a) {
-      //   print(a.toString());
-      // });
       if (dataList.isEmpty) {
         return AppModelResult(appList: []);
       } else {
@@ -40,7 +38,7 @@ class AppDbService {
         return AppModelResult(appList: users);
       }
     } catch (e) {
-      print('Error fetching documents: $e');
+      LoggerUtils.e("Error fetching documents: $e");
       return AppModelResult(errorMessage: 'Error: $e');
     }
   }

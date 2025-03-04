@@ -1,0 +1,33 @@
+import 'package:logger/logger.dart';
+
+class LoggerUtils {
+  static final Logger _logger = Logger(
+    printer: PrettyPrinter(
+      methodCount: 2, // Number of method calls to display
+      errorMethodCount: 5, // Number of method calls for error stack trace
+      lineLength: 80, // Width of each log line
+      colors: true, // Enable colors (works in debug console)
+      printEmojis: true, // Include emojis in logs
+      printTime: true, // Show time in logs
+    ),
+  );
+
+  static void d(String message) =>
+    _logger.d(message);
+  
+
+  static void i(String message) =>
+    _logger.i(message);
+
+
+  static void w(String message) =>
+    _logger.w(message);
+  
+
+  static void e(String message) =>
+    _logger.e(message);
+
+  static void v(String message) =>
+    _logger.v(message);
+  
+}

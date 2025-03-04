@@ -25,10 +25,10 @@ class ImageUploadModel {
 class Data {
   String? id;
   String? deletehash;
-  Null? accountId;
-  Null? accountUrl;
-  Null? adType;
-  Null? adUrl;
+  Null accountId;
+  Null accountUrl;
+  Null adType;
+  Null adUrl;
   String? title;
   String? description;
   String? name;
@@ -37,8 +37,8 @@ class Data {
   int? height;
   int? size;
   int? views;
-  Null? section;
-  Null? vote;
+  Null section;
+  Null vote;
   int? bandwidth;
   bool? animated;
   bool? favorite;

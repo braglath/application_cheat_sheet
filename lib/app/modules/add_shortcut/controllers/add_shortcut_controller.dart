@@ -23,15 +23,7 @@ class AddShortcutController extends GetxController {
   var finalKeyBindings = ''.obs;
   var finalKeyCombination = ''.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   void setAppTitle(String title) => appTitle.value = title;
 
@@ -104,8 +96,4 @@ class AddShortcutController extends GetxController {
     return ' + $key';
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

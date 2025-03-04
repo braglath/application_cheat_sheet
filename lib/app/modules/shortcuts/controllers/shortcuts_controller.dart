@@ -11,10 +11,6 @@ class ShortcutsController extends GetxController {
 
   final Rxn<AppModel> app = Rxn<AppModel>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {
@@ -63,8 +59,4 @@ class ShortcutsController extends GetxController {
     hideLoader();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }
