@@ -6,7 +6,7 @@ class ShortcutsBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ShortcutsController>(
-      () => ShortcutsController(),
+      () => ShortcutsController(null),
     );
   }
 }

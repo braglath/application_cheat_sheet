@@ -21,4 +21,6 @@ class AppString {
       "This is to save a fresh new workbook";
   static const keyBindings = "Key Bindings";
   static const addAShortcut = "Add a Shortcut";
+  static const shortcuts = "Shortcuts";
+  static const notes = "Notes";
 }

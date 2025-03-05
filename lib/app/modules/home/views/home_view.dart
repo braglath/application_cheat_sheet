@@ -78,7 +78,7 @@ class AppCard extends StatelessWidget {
           type: MaterialType.transparency,
           child: GlossyCard(
             imageUrl: app.url,
-            onTap: () => Get.toNamed(AppPages.shortcuts, arguments: app),
+            onTap: () => Get.toNamed(AppPages.appPage, arguments: app),
             name: app.name ?? '',
           ),
         ),

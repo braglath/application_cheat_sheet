@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/app_page/bindings/app_page_binding.dart';
+import '../modules/app_page/views/app_page_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/shortcuts/bindings/shortcuts_binding.dart';
@@ -12,6 +14,7 @@ class AppPages {
 
   static const home = Routes.home;
   static const shortcuts = Routes.shortcuts;
+  static const appPage = Routes.appPage;
 
   static final routes = [
     GetPage(
@@ -27,6 +30,11 @@ class AppPages {
       binding: ShortcutsBinding(),
       transition: Transition.rightToLeft,
       // transitionDuration: Duration(milliseconds: 600)
+    ),
+    GetPage(
+      name: _Paths.appPage,
+      page: () => const AppPageView(),
+      binding: AppPageBinding(),
     ),
   ];
 }

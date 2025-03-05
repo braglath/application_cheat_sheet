@@ -4,7 +4,6 @@ import 'package:application_cheatsheets/app/modules/add_shortcut/controllers/add
 import 'package:application_cheatsheets/app/modules/add_shortcut/views/add_shortcut_view.dart';
 import 'package:application_cheatsheets/app/utils/app_extensions.dart';
 import 'package:application_cheatsheets/app/utils/logger_utils';
-import 'package:application_cheatsheets/app/widgets/app_logo_image_small.dart';
 import 'package:application_cheatsheets/app/widgets/loader.dart';
 import 'package:application_cheatsheets/app/widgets/search_with_fab.dart';
 import 'package:application_cheatsheets/app/widgets/text_with_rectangles.dart';
@@ -44,141 +43,127 @@ class ShortcutsView extends GetView<ShortcutsController> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        extendBody: true,
-        // extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          title: Obx(() => Text(controller.app.value?.name ?? '')),
-          actions: [
-            Obx(() {
-              return Hero(
-                tag: controller.app.value?.id ?? '',
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                      padding: const EdgeInsets.only(right: 1.0),
-                      child: AppLogoImageSmall(
-                          url: controller.app.value?.url ?? '')),
-                ),
-              );
-            }),
-          ],
-        ),
-        body: Padding(
+  Widget build(BuildContext context) => Scaffold(
+      body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Obx(() => controller.shortcuts.isEmpty
-                      ? Center(
-                          child: SubtitleText(AppString.noShortcutsAddedYet))
-                      : ListView.separated(
-                          padding: EdgeInsets.only(bottom: 150),
-                          shrinkWrap: true,
-                          itemCount: controller.shortcuts.length,
-                          separatorBuilder: (context, index) => Divider(),
-                          itemBuilder: (context, index) => ExpansionTile(
-                                leading: Text((index + 1).toString()),
-                                maintainState: true,
-                                title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: TitleText(
-                                      controller.shortcuts[index].title ?? ''),
-                                ),
-                                subtitle: Column(
-                                  spacing: controller.shortcuts[index]
-                                          .keyCombination.isNullOrEmpty
-                                      ? 0
-                                      : 16,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWithRectangles(
-                                        text: controller
-                                                .shortcuts[index].keyBinding ??
-                                            ''),
-                                    controller.shortcuts[index].keyCombination
-                                            .isNullOrEmpty
-                                        ? SizedBox.shrink()
-                                        : TextWithRectangles(
-                                            text: controller.shortcuts[index]
-                                                    .keyCombination ??
-                                                ''),
-                                  ],
-                                ),
-                                childrenPadding: EdgeInsets.only(
-                                    left: 16.0,
-                                    bottom: 8,
-                                    right: 16.0,
-                                    top: 8.0),
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Column(
+          child: Obx(
+            () => controller.isLoading.isTrue
+                ? Loader<ShortcutsController>()
+                : Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      controller.shortcuts.isEmpty
+                          ? Center(
+                              child:
+                                  SubtitleText(AppString.noShortcutsAddedYet))
+                          : ListView.separated(
+                              padding: EdgeInsets.only(bottom: 150),
+                              shrinkWrap: true,
+                              itemCount: controller.shortcuts.length,
+                              separatorBuilder: (context, index) => Divider(),
+                              itemBuilder: (context, index) => ExpansionTile(
+                                    leading: Text((index + 1).toString()),
+                                    maintainState: true,
+                                    title: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: TitleText(
+                                          controller.shortcuts[index].title ??
+                                              ''),
+                                    ),
+                                    subtitle: Column(
+                                      spacing: controller.shortcuts[index]
+                                              .keyCombination.isNullOrEmpty
+                                          ? 0
+                                          : 16,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      spacing: 4,
                                       children: [
-                                        SmallText("${AppString.description}:"),
-                                        SubtitleText(controller
-                                                .shortcuts[index].description ??
-                                            ''),
+                                        TextWithRectangles(
+                                            text: controller.shortcuts[index]
+                                                    .keyBinding ??
+                                                ''),
+                                        controller.shortcuts[index]
+                                                .keyCombination.isNullOrEmpty
+                                            ? SizedBox.shrink()
+                                            : TextWithRectangles(
+                                                text: controller
+                                                        .shortcuts[index]
+                                                        .keyCombination ??
+                                                    ''),
                                       ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        // Like button
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.green,
-                                            radius: 15,
-                                            child: Icon(
-                                              Icons.thumb_up,
-                                              color: Colors.white,
-                                              size: 15,
-                                            ),
-                                          ),
+                                    childrenPadding: EdgeInsets.only(
+                                        left: 16.0,
+                                        bottom: 8,
+                                        right: 16.0,
+                                        top: 8.0),
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          spacing: 4,
+                                          children: [
+                                            SmallText(
+                                                "${AppString.description}:"),
+                                            SubtitleText(controller
+                                                    .shortcuts[index]
+                                                    .description ??
+                                                ''),
+                                          ],
                                         ),
-                                        SizedBox(
-                                            width:
-                                                16), // Space between the buttons
-                                        // Dislike button
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.red,
-                                            radius: 15,
-                                            child: Icon(
-                                              Icons.thumb_down,
-                                              color: Colors.white,
-                                              size: 15,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            // Like button
+                                            GestureDetector(
+                                              onTap: () {},
+                                              child: CircleAvatar(
+                                                backgroundColor: Colors.green,
+                                                radius: 15,
+                                                child: Icon(
+                                                  Icons.thumb_up,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            SizedBox(
+                                                width:
+                                                    16), // Space between the buttons
+                                            // Dislike button
+                                            GestureDetector(
+                                              onTap: () {},
+                                              child: CircleAvatar(
+                                                backgroundColor: Colors.red,
+                                                radius: 15,
+                                                child: Icon(
+                                                  Icons.thumb_down,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ))),
-                  SearchWithFab(
-                    onFabPressed: () => _showAddShortcutBottomSheet(context),
-                    onTextFieldChanged: (v) {},
-                    textLabel: "Search Shortcuts",
-                    fabLabel: AppString.addShortcut,
-                  )
-                ],
-              ),
-              Loader<ShortcutsController>(),
-            ],
-          ),
-        ));
-  }
+                                      )
+                                    ],
+                                  )),
+                      SearchWithFab(
+                        onFabPressed: () =>
+                            _showAddShortcutBottomSheet(context),
+                        onTextFieldChanged: (v) {},
+                        textLabel: "Search Shortcuts",
+                        fabLabel: AppString.addShortcut,
+                      )
+                    ],
+                  ),
+          )));
 }

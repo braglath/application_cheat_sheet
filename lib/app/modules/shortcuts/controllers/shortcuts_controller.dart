@@ -4,6 +4,8 @@ import 'package:application_cheatsheets/app/data/service/database/app_shortcut_d
 import 'package:get/get.dart';
 
 class ShortcutsController extends GetxController {
+  final AppModel? appModel;
+  ShortcutsController(this.appModel);
   final AppShortcutDbService _appShortcutDb = AppShortcutDbService();
 
   final shortcuts = <ShortcutsModel>[].obs;
@@ -11,14 +13,13 @@ class ShortcutsController extends GetxController {
 
   final Rxn<AppModel> app = Rxn<AppModel>();
 
-
   @override
   void onReady() {
     super.onReady();
-    final AppModel appArg = Get.arguments as AppModel;
-    setApp(appArg);
-    if (appArg.id == null || appArg.id!.isEmpty) return;
-    getAllShortcuts(appArg.id);
+    setApp(appModel);
+    if (appModel == null) return;
+    if (appModel!.id == null || appModel!.id!.isEmpty) return;
+    getAllShortcuts(appModel!.id);
   }
 
   void setApp(AppModel? a) => app.value = a;
@@ -33,7 +34,7 @@ class ShortcutsController extends GetxController {
     if (result.isError) {
       Get.snackbar("Error", result.errorMessage ?? '');
     } else {
-      shortcuts.clear();
+      // shortcuts.clear();
       if (result.shortcuts != null || result.shortcuts!.isNotEmpty) {
         shortcuts.value = result.shortcuts!.toList();
       }
@@ -58,5 +59,4 @@ class ShortcutsController extends GetxController {
     }
     hideLoader();
   }
-
 }
